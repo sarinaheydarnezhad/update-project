@@ -1,0 +1,468 @@
+/* ===== توکن‌های طراحی ===== */
+:root {
+  --coffee-dark: #2b1b12;
+  --coffee: #4a2e1c;
+  --paper: #f3ead9;
+  --brass: #b3893f;
+  --brass-light: #d9b876;
+  --rose: #c97b63;
+  --ink: #241610;
+  --error: #b3462c;
+  --radius: 14px;
+
+  --gradient-brass: linear-gradient(135deg, var(--brass) 0%, var(--brass-light) 100%);
+  --gradient-warm: linear-gradient(135deg, var(--rose) 0%, var(--brass) 50%, var(--brass-light) 100%);
+  --gradient-deep: linear-gradient(160deg, #1c110a 0%, var(--coffee-dark) 45%, var(--coffee) 100%);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Vazirmatn', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* ===== انیمیشن ورود: هیرو (کند و نرم) ===== */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1), transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay, 0s);
+}
+.reveal-up.in-view { opacity: 1; transform: translateY(0); }
+
+/* ===== انیمیشن ورود: کارت‌ها با افکت بلور (ترند رایج طراحی امروزی) ===== */
+.reveal-blur {
+  opacity: 0;
+  filter: blur(16px);
+  transform: translateY(28px) scale(0.94);
+  transition: opacity 1.5s ease, filter 1.5s ease, transform 1.5s ease;
+  transition-delay: var(--delay, 0s);
+}
+.reveal-blur.in-view {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up, .reveal-blur {
+    opacity: 1; transform: none; filter: none; transition: none;
+  }
+}
+
+.menu-item:nth-child(1) { --delay: 0s; }
+.menu-item:nth-child(2) { --delay: 0.18s; }
+.menu-item:nth-child(3) { --delay: 0.36s; }
+.menu-item:nth-child(4) { --delay: 0.54s; }
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* متن با گرادیانت — برای تاکید روی یک کلمه‌ی کلیدی */
+.text-gradient {
+  background: var(--gradient-warm);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ===== هدر ===== */
+.site-header {
+  background: var(--gradient-deep);
+  color: var(--paper);
+}
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+}
+.logo { font-weight: 900; font-size: 1.4rem; }
+.logo span {
+  background: var(--gradient-brass);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+nav { display: flex; gap: 24px; }
+nav a { font-weight: 500; opacity: 0.85; transition: opacity 0.2s; }
+nav a:hover, nav a:focus-visible { opacity: 1; color: var(--brass-light); }
+
+/* ===== هیرو — مینیمال با پس‌زمینه‌ی aurora ===== */
+.hero {
+  background: var(--gradient-deep);
+  color: var(--paper);
+  padding: 100px 24px 110px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-aurora {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  filter: blur(70px);
+  opacity: 0.55;
+}
+.blob { position: absolute; border-radius: 50%; animation: float-blob 22s ease-in-out infinite; }
+.blob-1 {
+  width: 420px; height: 420px;
+  top: -140px; right: -80px;
+  background: radial-gradient(circle, var(--brass) 0%, transparent 70%);
+}
+.blob-2 {
+  width: 340px; height: 340px;
+  bottom: -160px; right: 20%;
+  background: radial-gradient(circle, var(--rose) 0%, transparent 70%);
+  animation-delay: -7s;
+  animation-duration: 28s;
+}
+.blob-3 {
+  width: 280px; height: 280px;
+  top: 20%; left: -100px;
+  background: radial-gradient(circle, var(--brass-light) 0%, transparent 70%);
+  animation-delay: -14s;
+  animation-duration: 25s;
+}
+@keyframes float-blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(30px, -20px) scale(1.08); }
+  66%      { transform: translate(-20px, 25px) scale(0.95); }
+}
+@media (prefers-reduced-motion: reduce) { .blob { animation: none; } }
+
+.hero-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 56px;
+  max-width: 1000px;
+}
+.hero-content { max-width: 500px; }
+
+.eyebrow {
+  display: inline-block;
+  color: var(--brass-light);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  padding: 6px 14px;
+  border: 1px solid rgba(217, 184, 118, 0.35);
+  border-radius: 100px;
+  margin-bottom: 22px;
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.35;
+  margin-bottom: 20px;
+}
+.hero-sub { font-size: 1.1rem; opacity: 0.8; max-width: 480px; margin-bottom: 32px; }
+
+/* ===== ویژوال منظومه‌ای — حلقه‌های مداری چرخان دور یک هسته‌ی مرکزی ===== */
+.hero-visual { flex-shrink: 0; text-align: center; }
+.orbit-visual {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  margin: 0 auto;
+}
+.orbit-core {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--gradient-warm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.9rem;
+  box-shadow: 0 0 50px rgba(217, 184, 118, 0.45);
+}
+.orbit-ring {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  border: 1px dashed rgba(217, 184, 118, 0.32);
+  border-radius: 50%;
+}
+.ring-1 { width: 180px; height: 180px; animation: orbit-spin 22s linear infinite; }
+.ring-2 { width: 260px; height: 260px; animation: orbit-spin 34s linear infinite reverse; }
+
+.orbit-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px;
+  border-radius: 50%;
+  background: var(--gradient-brass);
+  transform: rotate(var(--angle)) translateX(90px);
+  box-shadow: 0 0 14px rgba(217, 184, 118, 0.6);
+}
+.ring-2 .orbit-dot { transform: rotate(var(--angle)) translateX(130px); }
+.orbit-dot.small { width: 10px; height: 10px; margin: -5px; opacity: 0.85; }
+
+@keyframes orbit-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .ring-1, .ring-2 { animation: none; }
+}
+
+.orbit-caption {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  opacity: 0.85;
+  font-weight: 700;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: var(--gradient-brass);
+  color: var(--coffee-dark);
+  font-weight: 700;
+  padding: 14px 32px;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: filter 0.2s, transform 0.15s;
+}
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-primary:active { transform: scale(0.98); }
+.btn-primary:focus-visible { outline: 3px solid var(--brass-light); outline-offset: 3px; }
+
+@media (max-width: 780px) {
+  .hero-inner { flex-direction: column; text-align: center; }
+  .hero-content { max-width: 100%; }
+  .hero-sub { margin-inline: auto; }
+  .orbit-visual { width: 220px; height: 220px; }
+  .ring-1 { width: 150px; height: 150px; }
+  .ring-2 { width: 220px; height: 220px; }
+  .orbit-dot { transform: rotate(var(--angle)) translateX(75px); }
+  .ring-2 .orbit-dot { transform: rotate(var(--angle)) translateX(110px); }
+}
+
+/* ===== منو ===== */
+.menu {
+  padding: 80px 24px;
+  background: linear-gradient(180deg, var(--paper) 0%, #ecdcc0 100%);
+}
+.menu h2 { font-size: 1.8rem; font-weight: 900; margin-bottom: 32px; color: var(--coffee); }
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+.menu-item {
+  position: relative;
+  background: white;
+  border-radius: var(--radius);
+  padding: 20px;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* حاشیه‌ی گرادیانتی ظریف */
+.menu-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(201,123,99,0.55), rgba(179,137,63,0.15) 60%, rgba(255,255,255,0));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+/* افکت درخشش هنگام هاور — یکی از ترندهای پرطرفدار کارت محصول */
+.menu-item::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+  transform: rotate(20deg);
+  transition: left 0.7s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+.menu-item:hover::after { left: 130%; }
+.menu-item:hover { transform: translateY(-3px); transition: transform 0.3s ease; }
+.menu-item h3 { position: relative; font-size: 1.1rem; margin-bottom: 8px; }
+.menu-item p { position: relative; color: var(--brass); font-weight: 700; }
+
+/* ===== اسلایدر محصولات بیشتر ===== */
+.more-items {
+  padding: 72px 0;
+  background: var(--gradient-deep);
+  color: var(--paper);
+  overflow: hidden;
+}
+.more-items-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding: 0 24px;
+  max-width: 1000px;
+  margin-inline: auto;
+}
+.more-items-head h2 { font-size: 1.6rem; font-weight: 900; }
+
+.slider-nav { display: flex; gap: 10px; }
+.slider-btn {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(217, 184, 118, 0.4);
+  background: rgba(255,255,255,0.05);
+  color: var(--brass-light);
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.slider-btn:hover { background: rgba(217, 184, 118, 0.15); }
+
+.slider-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 4px 24px 12px;
+  scrollbar-width: none;
+}
+.slider-track::-webkit-scrollbar { display: none; }
+
+.slide-card {
+  flex: 0 0 200px;
+  scroll-snap-align: start;
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  padding: 18px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.slide-card:hover { transform: translateY(-4px); border-color: rgba(217, 184, 118, 0.4); }
+.slide-thumb { height: 110px; border-radius: 10px; margin-bottom: 14px; }
+.thumb-1 { background: linear-gradient(135deg, #8a5a34, #d9b876); }
+.thumb-2 { background: linear-gradient(135deg, #5c3a22, #c97b63); }
+.thumb-3 { background: linear-gradient(135deg, #b3893f, #f3ead9); }
+.thumb-4 { background: linear-gradient(135deg, #2f6b2a, #d9b876); }
+.thumb-5 { background: linear-gradient(135deg, #c97b63, #b3893f); }
+.thumb-6 { background: linear-gradient(135deg, #6b3a2a, #c97b63, #d9b876); }
+.thumb-7 { background: linear-gradient(135deg, #d9b876, #f3ead9); }
+
+.slide-card h3 { font-size: 1rem; margin-bottom: 4px; }
+.slide-card p { color: var(--brass-light); font-weight: 700; font-size: 0.9rem; }
+
+/* ===== بخش رزرو ===== */
+.booking {
+  background: linear-gradient(160deg, var(--coffee) 0%, var(--coffee-dark) 60%, #1c110a 100%);
+  color: var(--paper);
+  padding: 72px 24px;
+}
+.booking-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.booking-text h2 { font-size: 1.8rem; font-weight: 900; margin-bottom: 12px; }
+.booking-text p { opacity: 0.8; margin-bottom: 24px; }
+
+.booking-perks { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.booking-perks li { display: flex; align-items: center; gap: 10px; opacity: 0.9; }
+.perk-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  background: var(--gradient-brass);
+  color: var(--coffee-dark);
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.booking-form {
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: var(--radius);
+  padding: 28px;
+  max-width: 380px;
+  margin-inline-start: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+}
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+label { font-weight: 700; font-size: 0.95rem; }
+input, select {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 12px 14px;
+  border: 1.5px solid #d9c8a8;
+  border-radius: 10px;
+  background: white;
+  color: var(--ink);
+}
+input:focus-visible, select:focus-visible {
+  outline: none;
+  border-color: var(--brass);
+  box-shadow: 0 0 0 3px rgba(179, 137, 63, 0.25);
+}
+input.invalid, select.invalid { border-color: var(--error); }
+
+.error-msg { color: var(--error); font-size: 0.85rem; min-height: 1.1em; }
+
+.success-msg {
+  background: #e4f0e2;
+  color: #2f6b2a;
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* ===== فوتر ===== */
+.site-footer {
+  background: var(--gradient-deep);
+  color: var(--paper);
+  opacity: 0.85;
+  padding: 24px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* ===== موبایل ===== */
+@media (max-width: 720px) {
+  .booking-inner { grid-template-columns: 1fr; }
+  .booking-form { max-width: 100%; margin-inline: 0; }
+  .field-row { grid-template-columns: 1fr; }
+  nav { gap: 16px; }
+  .more-items-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
